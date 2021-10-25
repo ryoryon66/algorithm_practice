@@ -12,6 +12,7 @@ typedef long long ll;
 
 using namespace std;
 
+//number_of_inversions result
 ll ans = 0;
 
 //[left,right)
@@ -43,17 +44,10 @@ void merge(vector <ll>& A,ll left,ll right){
   right2 -= left2;
   left2 -= left2;
 
-  //cout<<left2<<" "<<right2<<endl;
-  //print(333)
+
   assert(left1 == 0 and left2 == 0);
 
-  //assert(right1 - left1 == A1.size());
-  //cout<<right1 - left1 << " "<<A1.size()<<endl;
 
-  //cout<<A1[right1]<<endl;
-   //assert(left1 <= right1 and left2 <= right2);
-  
- //a//ssert(i <= right);
  assert(right1 -left1+ right2-left2 == right - left);
  assert(right1 + right2 == right - left);
 
@@ -76,7 +70,6 @@ void merge(vector <ll>& A,ll left,ll right){
     }
     A.at(i) = a;
     i++;
-   // cout<<i<<endl;
   } 
   
   
