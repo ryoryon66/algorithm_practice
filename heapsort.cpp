@@ -1,19 +1,6 @@
-
-// C++ (GCC9.2.1) AtCoder
-/*
-Ctrl+Option+N で　実行
-atcoder コメントアウトはずせ
-
-テストケースランダム生成
-simple_ans.cppとtest_target.cppにぺたり
-make_testcase.cppで入力生成スクリプトを書いて標準出力に出せるようにしてbash counter_example.shすると良い
-
-*/
 #include <bits/stdc++.h>
 using namespace std;
 
-
-#define INF 1000000000000
 #define REP(i, n) for (int i = 0; i < (int)(n); i++)
 #define all(x) (x).begin(),(x).end()
 #define print(x) cout << (x) << endl;
