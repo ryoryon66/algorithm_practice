@@ -1,0 +1,138 @@
+
+/*
+in-place sorting
+https://algo-method.com/tasks/443
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+#define INF 1000000000000
+#define REP(i, n) for(int i = 0; i < (int)(n); i++)
+#define all(x) (x).begin(), (x).end()
+#define print(x) cout << (x) << endl;
+#define show(x) cout << #x << ": " << x << endl;
+#define fi first
+#define se second
+
+typedef long long ll;
+
+using Pi = pair<int, int>;
+using Pll = pair<long long, long long>;
+using vi = vector<int>;
+using vll = vector<ll>;
+
+const ll inf = 1000000000000000000;
+
+ll partition(ll first, ll last, vector<ll> &A) {
+  assert(last - first + 1 >= 1);
+  ll pivot_idx = first + (rand()) % (last - first);
+  ll pivot = A[pivot_idx];
+
+  // show(pivot)
+
+  ll pi = first;
+  ll pj = last;
+
+  // pivotと同じ値を右端に振り分ける
+  while(true) {
+    if(A[pi] == pivot) {
+      swap(A[pi], A[pj]);
+      pj--;
+    }
+    pi++;
+    if(pj - pi <= 0)
+      break;
+  }
+
+  ll i = first;
+  ll j = last;
+
+  while(j - i > 0) {
+    if(A[j] < pivot) { // pivotより小さめのものを前の方へ持っていく。
+      swap(A[i], A[j]);
+      /*
+      for(int ii = first; ii <= last; ii++) {
+        cout << A[ii] << (ii == last ? "\n" : " ");
+      }
+      */
+      i++;
+      continue;
+    } else if(A[j] == pivot) { // pivotと同じ値は確率で左端へ寄せる。
+      if(rand() % 2 == 1) {
+        swap(A[i], A[j]);
+        i++;
+        continue;
+      }
+    }
+    j--;
+  }
+
+  /*
+    print("partition result")
+    for(int ii = first; ii <= last; ii++) {
+      cout << A[ii] << (ii == last ? "\n" : " ");
+    }
+    */
+
+  assert(i == j and i >= first and i <= last);
+
+  if(A[j] > pivot)
+    j--;
+
+  return j;
+}
+
+void quick_sort(ll first, ll last, vector<ll> &A) {
+  /*
+
+ print("sort this")
+  for(int ii = first; ii <= last; ii++) {
+    cout << A[ii] << (ii == last ? "\n" : " ");
+  }
+  show(first)
+  show(last)
+  */
+
+  if(last - first <= 0)
+    return;
+  
+  //乱択の都合で2要素の時動かないので対策
+  if(last - first == 1) {
+    if(A[last] < A[first])
+      swap(A[first], A[last]);
+    return;
+  }
+
+  if(last > first) {
+
+    ll q = partition(first, last, A);
+
+    quick_sort(first, q, A);
+    quick_sort(q + 1, last, A);
+  }
+
+  return;
+}
+
+int main() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  std::cout << std::fixed
+            << std::setprecision(10); //小数を出力するときだけ小数点以下10桁
+
+  ll N;
+  cin >> N;
+
+  vector<ll> A(N);
+  REP(i, N) cin >> A[i];
+  auto B = A;
+  sort(all(B));
+
+  quick_sort(0, N - 1, A);
+
+  REP(i, N) cout << A[i] << (i == N - 1 ? "\n" : " ");
+
+  REP(i,N) assert(A[i] == B[i]);
+
+  return 0;
+}
