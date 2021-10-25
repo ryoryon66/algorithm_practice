@@ -25,7 +25,7 @@ const ll inf = 1000000000000000000;
 
 ll partition(ll first, ll last, vector<ll> &A) {
   assert(last - first + 1 >= 1);
-  ll pivot_idx = first + (rand()) % (last - first);
+  ll pivot_idx = first + (rand()) % (last - first + 1);
   ll pivot = A[pivot_idx];
 
   // show(pivot)
