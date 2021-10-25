@@ -1,0 +1,88 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+#define INF 1000000000000
+#define REP(i, n) for (int i = 0; i < (int)(n); i++)
+#define all(x) (x).begin(),(x).end()
+#define print(x) cout << (x) << endl;
+#define show(x) cout << #x << ": " << x << endl;
+#define fi first
+#define se second
+
+typedef long long ll;
+
+using Pi = pair<int, int>;
+using Pll = pair<long long, long long>;
+using vi = vector<int>;
+using vll = vector<ll>;
+
+const ll inf = 1000000000000000000;
+
+ll partition(ll first, ll last, vector<ll> &A) {
+  ll pivot_idx = first ;//+ rand() % (last-first+1);
+  ll pivot = A[pivot_idx];
+  swap(A[first],A[pivot_idx]);
+
+  ll i = first;
+  ll j = last;
+
+  while(j - i > 0){
+    if(A[j] <= pivot ){
+
+
+      while(j - i > 0) {
+
+        if(A[i] >= pivot)
+          break;
+        i++;
+      }
+
+      if(j==i) break;
+  
+      swap(A[i],A[j]);
+  
+      j--;
+      continue;
+    }
+    j--;
+  }
+
+return i;
+}
+
+void quick_sort(ll first,ll last,vector <ll> &A){
+ 
+
+  if(last - first == 0) return;
+
+  ll q = partition(first,last,A);
+
+
+  quick_sort(first,q,A);
+  quick_sort(q+1,last,A);
+}
+
+int main() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr); 
+  std::cout<<std::fixed<<std::setprecision(10); //小数を出力するときだけ小数点以下10桁
+
+  ll N;
+  cin>>N;
+
+  vector <ll> A(N);
+  REP(i,N) cin>>A[i];
+  auto B = A;
+  sort(all(B));
+
+  quick_sort(0,N-1,A);
+
+
+  REP(i,N) cout<<A[i]<< (i==N-1 ? "\n" : " ");
+
+  REP(i,N) assert(A[i] == B[i]);
+
+  return 0;
+}
